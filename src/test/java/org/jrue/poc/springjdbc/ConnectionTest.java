@@ -2,29 +2,37 @@ package org.jrue.poc.springjdbc;
 
 import java.sql.SQLException;
 
+
+
+
+
+
+
+import javax.sql.DataSource;
+
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:META-INF/spring-config.xml")
 public class ConnectionTest {
 
-	private AbstractApplicationContext context;
-	
-	@Before
-	public void init() {
-		context = new ClassPathXmlApplicationContext("META-INF/spring-config.xml");
-	}
+	@Autowired
+	private DataSource dataSource;
 	
 	@After
 	public void destroy() {
-		context = null;
+		dataSource = null;
 	}
 	
 	@Test
 	public void testConnectivity() throws SQLException {	
-		Assert.assertNotNull(context.getBean("basicDataSource"));
+		Assert.assertNotNull(dataSource);
 	}
 	
 }

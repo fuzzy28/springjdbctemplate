@@ -4,12 +4,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.jrue.poc.springjdbc.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class UserDao extends JdbcDaoSupport implements GenericDao<User, String> {
 		
+	@Autowired
+	public void setDs(DataSource dataSource) {
+		setDataSource(dataSource);
+	}
+	
 	private static final String INSERT_STATEMENT = "INSERT INTO M_USER (NAME,PASSWORD,DEPARTMENTNAME,EMPLOYEEID,DELFLAG) " +
 													"VALUES (?, ? ,? ,?, 0)";
 	

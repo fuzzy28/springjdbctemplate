@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface GenericDao<E, K> {
 
-	E findSingle(String key);
+	E findSingle(K key);
 	List<E> findAll();
 	void save(E record);
 	void update(E record);
